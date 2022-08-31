@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open("requirements.txt", "r") as file:
     requirements = [line for line in file.read().splitlines() if line]
@@ -19,6 +19,7 @@ setup(
     url="https://github.com/rhdzmota/rhdzmota-package",
     author="Rodrigo H. Mota",
     author_email="contact@rhdzmota.com",
+    packages=find_packages(where="src"),
     package_dir={
         "": "src"
     },
