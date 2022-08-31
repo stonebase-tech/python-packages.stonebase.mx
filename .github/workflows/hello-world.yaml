@@ -1,0 +1,30 @@
+name: Hello-World-Test
+
+on: [pull_request]
+
+jobs:
+  build:
+    name: Testing basic hello-world command
+    runs-on: ubuntu-18.04
+    steps:
+      - name: clone-repo
+        uses: actions/checkout@v1
+        with:
+          submodules: true
+      - name: install-python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7.5'
+      - name: build-dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install setuptools wheel
+      - name: python-wheel
+        run: |
+          python setup.py bdist_wheel
+      - name: rhdzmota-install
+        run: |
+          python -m pip install dist/rhdzmota*.whl
+      - name: hello-world
+        run: |
+          python -m rhdzmota hello
