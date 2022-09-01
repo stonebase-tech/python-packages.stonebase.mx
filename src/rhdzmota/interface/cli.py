@@ -9,7 +9,7 @@ class CLI:
 
     class Formatter:
 
-        def __init__(self, cls: Optional = None, default: Optional = None):
+        def __init__(self, cls: Optional = None, default: Optional = None):  # type: ignore
             self.serializer = lambda obj: json.dumps(obj, cls=cls, default=default, indent=4)
 
         def __call__(self, method):
