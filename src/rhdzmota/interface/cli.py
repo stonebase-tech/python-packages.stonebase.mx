@@ -31,7 +31,7 @@ class CLI:
         self.start = dt.datetime.utcnow()
 
     @Formatter()
-    def environ(self, name: str) -> str:
+    def environ(self, name: str) -> Optional[str]:
         return get_environ_variable(
             name=name,
             enforce=False,
