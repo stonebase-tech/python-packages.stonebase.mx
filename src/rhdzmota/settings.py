@@ -1,19 +1,39 @@
 import os
 import logging
-from typing import Callable, Dict, Optional, Union, TypeVar
+from typing import Callable, Dict, Literal, NoReturn, Optional, Union, TypeVar, overload
 from logging.config import dictConfig
 
 T = TypeVar("T")
+
+
+@overload
+def get_environ_variable(
+        name: str,
+        default: Literal[None] = None,
+        enforce: bool = False,
+        apply: Optional[Callable[[Optional[str]], T]] = None,
+) -> Optional[Union[str, T]]:
+    ...
+
+
+@overload
+def get_environ_variable(
+        name: str,
+        default: str,
+        enforce: bool = False,
+        apply: Optional[Callable[[str], T]] = None,
+) -> Union[str, T]:
+    ...
 
 
 def get_environ_variable(
         name: str,
         default: Optional[str] = None,
         enforce: bool = False,
-        apply: Optional[Callable[[Optional[str]], T]] = None,
+        apply: Optional[Union[Callable[[Optional[str]], T], Callable[[str], T]]] = None,
 ) -> Optional[Union[Optional[str], T]]:
     return (apply or (lambda x: x))(  # type: ignore
-        os.environ.get(name, default=default) if not enforce else
+        os.environ.get(name, default=default) if not enforce else  # type: ignore
         os.environ.get(name) or (lambda: (_ for _ in ())
                                  .throw(ValueError(f"Missing environ variable: {name}")))()
     )
@@ -93,7 +113,7 @@ class LoggerManager:
 
     @classmethod
     def singleton(cls, overwrite_config_dictionary: Optional[Dict] = None) -> 'LoggerManager':
-        if overwrite_config_dictionary or cls._Singleton.count == 0:
+        if overwrite_config_dictionary or cls._Singleton.value is None:
             cls._Singleton.value = cls(overwrite_config_dictionary)
             if cls._Singleton.count > 1:
                 cls._Singleton.value.get_logger(name=__name__).warning("Creating a new logger manager instance.")
@@ -105,7 +125,7 @@ logger = logger_manager.get_logger(name=__name__)
 
 # JWT
 
-JWT_ENCRYPTION_ALGORITHM = get_environ_variable(
+JWT_ENCRYPTION_ALGORITHM: str = get_environ_variable(
     name="JWT_ENCRYPTION_ALGORITHM",
     default="HS256"
 )
