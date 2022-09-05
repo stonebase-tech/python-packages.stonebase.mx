@@ -1,7 +1,5 @@
 import time
-from typing import Optional
-
-import requests
+from typing import Optional, TYPE_CHECKING
 
 
 class Gist:
@@ -23,6 +21,16 @@ class Gist:
         )
 
     def get_code(self) -> str:
+        if not TYPE_CHECKING:
+            # For some reason, I cannot get mypy (mypy==0.971) on Python 3.8.10 to ignore type problems derived from
+            # adding the requests library as a dependency. Therefore, this if-statement is just a quickfix until
+            # we can safely integrate the requests library into the codebase with the corresponding type-checks.
+            import requests  # type: ignore
+        else:
+            import importlib
+
+            requests = importlib.import_module("requests")
+
         response = requests.get(url=self.url)
         return response.text
 
@@ -31,7 +39,7 @@ class Gist:
         code_snippet = self.get_code()
         # Define the user namespace
         try:
-            import IPython
+            import IPython  # type: ignore
 
             user_ns = getattr(IPython.get_ipython(), 'user_ns', globals())
         except ImportError:

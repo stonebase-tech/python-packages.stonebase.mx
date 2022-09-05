@@ -5,7 +5,7 @@ from typing import Optional
 from ..settings import get_environ_variable
 
 
-class CLI:
+class CLIBase:
 
     class Formatter:
 

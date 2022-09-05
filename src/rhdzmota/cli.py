@@ -1,7 +1,7 @@
 from typing import Optional
 
 from .settings import logger_manager
-from .interface.cli import CLI as CLIBase
+from .interface.cli import CLIBase
 from .utils.gists import Gist
 
 
