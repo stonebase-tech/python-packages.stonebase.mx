@@ -18,7 +18,11 @@ def get_new_keys(*args, **kwargs):
 class KeyWrapper(Generic[KEY_TYPES]):
 
     def __init__(self, value: KEY_TYPES):
-        self.value = value
+        self.value: KEY_TYPES = value
+        # if isinstance(value, rsa.PublicKey):
+        #     self.value: rsa.PublicKey = value
+        # else:
+        #     self.value: rsa.PrivateKey = value
 
     def to_dict(self) -> Dict:
         return {
@@ -30,18 +34,25 @@ class KeyWrapper(Generic[KEY_TYPES]):
     @classmethod
     def from_dict(
             cls,
-            dictionary: Dict,
-            class_reference: Union[Type[rsa.PublicKey], Type[rsa.PrivateKey]]
+            dictionary: Dict[str, int],
+            class_reference: Type[KEY_TYPES] #Union[Type[rsa.PublicKey], Type[rsa.PrivateKey]]
     ) -> 'KeyWrapper':
-        return cls(value=class_reference(**{key: val if isinstance(val, str) else int(val) for key, val in dictionary.items()}))
+        return cls(
+            value=class_reference(
+                **{
+                    key: val if isinstance(val, str) else int(val)
+                    for key, val in dictionary.items()
+                }
+            )
+        )
 
-    @classmethod
-    def from_pubdict(cls, dictionary: Dict) -> 'KeyWrapper[rsa.PublicKey]':
-        return cls(value=rsa.PublicKey(**dictionary))
+    @staticmethod
+    def from_pubdict(dictionary: Dict) -> 'KeyWrapper[rsa.PublicKey]':
+        return KeyWrapper[rsa.PublicKey](value=rsa.PublicKey(**dictionary))
 
-    @classmethod
-    def from_privdict(cls, dictionary) -> 'KeyWrapper[rsa.PrivateKey]':
-        return cls(value=rsa.PrivateKey(**dictionary))
+    @staticmethod
+    def from_privdict(dictionary: Dict) -> 'KeyWrapper[rsa.PrivateKey]':
+        return KeyWrapper[rsa.PrivateKey](value=rsa.PrivateKey(**dictionary))
 
 
 def rsa_encrypt(message: str, pubkey: KeyWrapper[rsa.PublicKey], encoding: str = "utf-8"):
