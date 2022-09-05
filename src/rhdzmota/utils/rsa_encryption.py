@@ -35,7 +35,7 @@ class KeyWrapper(Generic[KEY_TYPES]):
     def from_dict(
             cls,
             dictionary: Dict[str, int],
-            class_reference: Type[KEY_TYPES] #Union[Type[rsa.PublicKey], Type[rsa.PrivateKey]]
+            class_reference: Type[KEY_TYPES]
     ) -> 'KeyWrapper':
         return cls(
             value=class_reference(
