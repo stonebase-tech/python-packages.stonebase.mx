@@ -123,6 +123,13 @@ class LoggerManager:
 logger_manager = LoggerManager.singleton()
 logger = logger_manager.get_logger(name=__name__)
 
+# Celery
+
+RHDZMOTA_CELERY_BROKER_HOST = get_environ_variable(
+    name="RHDZMOTA_CELERY_BROKER_HOST",
+    default="127.0.0.1"
+)
+
 # JWT
 
 JWT_ENCRYPTION_ALGORITHM: str = get_environ_variable(

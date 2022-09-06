@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from multiprocessing import Event, Queue, Process, Value
 from threading import Thread
 
-from .runtime import system_describe
+from ..utils.runtime import system_describe
 
 
 class DaemonHeart(Process):
