@@ -1,3 +1,4 @@
+import time
 from typing import Optional
 
 from .settings import logger_manager
@@ -10,11 +11,18 @@ logger = logger_manager.get_logger(name=__name__)
 
 class CLI(CLIBase):
 
-    @CLIBase.Formatter()
-    def hello(self, world: Optional[str] = None):
-        logger.debug("CLI Hello command execution.")
+    @CLIBase.Formatter(default=str)
+    def hello(self, world: Optional[str] = None, sleep: int = 1, delegate: bool = False):
+        from .celery_worker_hello import worker
+
         world = world or "world"
-        return f"Hello, {world}!"
+        time.sleep(sleep)
+
+        if delegate:
+            return worker.delay(name=world)
+
+        logger.debug("CLI Hello command execution.")
+        return worker(name=world)
 
     @CLIBase.Formatter()
     def gist(
