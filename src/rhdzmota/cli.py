@@ -13,16 +13,18 @@ class CLI(CLIBase):
 
     @CLIBase.Formatter(default=str)
     def hello(self, world: Optional[str] = None, sleep: int = 1, delegate: bool = False):
-        from .celery_worker_hello import worker
-
         world = world or "world"
         time.sleep(sleep)
+        try:
+            from .celery_worker_hello import worker
 
-        if delegate:
-            return worker.delay(name=world)
+            if delegate:
+                return worker.delay(name=world)
 
-        logger.debug("CLI Hello command execution.")
-        return worker(name=world)
+            logger.debug("CLI Hello command execution.")
+            return worker(name=world)
+        except ImportError:
+            return f"Hello, {world}!"
 
     @CLIBase.Formatter()
     def gist(
