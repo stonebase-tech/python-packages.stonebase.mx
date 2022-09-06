@@ -18,13 +18,13 @@ class Daemon:
 
     @staticmethod
     def summon(name: str, publisher: CELERY_TASK_TYPE, **heart_configs):
-        def decorator(worker: Callable):
+        def decorator(worker: CELERY_TASK_TYPE):
             def wrapper(*args, **kwargs):
                 # Initialize the daemon and broadcast heartbeat
                 daemon = Daemon(name=name, publisher=publisher, **heart_configs)
                 daemon.broadcast()
                 # Execute the worker function
-                output = worker(*args, **kwargs)
+                output = worker.delay(*args, **kwargs)
                 # Kill the daemon
                 daemon.kill()
                 return output
