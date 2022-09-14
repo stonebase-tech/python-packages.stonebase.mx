@@ -54,4 +54,3 @@ class StreamlitCLIWrapper:
             function_name="hello_world",
             module_name="rhdzmota.wrappers._streamlit.example_views"
         )
-
