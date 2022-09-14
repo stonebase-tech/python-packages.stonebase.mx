@@ -16,7 +16,7 @@ class CLI(CLIBase):
         world = world or "world"
         time.sleep(sleep)
         try:
-            from .celery_worker_hello import worker
+            from .celery_workers.hello import worker
 
             if delegate:
                 return worker.delay(name=world)

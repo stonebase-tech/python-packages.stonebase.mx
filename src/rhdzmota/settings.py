@@ -130,6 +130,11 @@ RHDZMOTA_CELERY_BROKER_HOST = get_environ_variable(
     default="127.0.0.1"
 )
 
+# Daemon
+RHDZMOTA_DAEMON_NAME = get_environ_variable(
+    name="RHDZMOTA_DAEMON_NAME",
+)
+
 # JWT
 
 JWT_ENCRYPTION_ALGORITHM: str = get_environ_variable(
