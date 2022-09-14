@@ -7,8 +7,9 @@ def hello_world():
         textwrap.dedent(
             """
             # RHDZMOTA Hello World!
-            
+
             This is a simple streamlit hello-world application.
             """
         )
     )
+

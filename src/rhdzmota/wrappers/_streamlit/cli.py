@@ -41,7 +41,7 @@ class StreamlitCLIWrapper:
             content=textwrap.dedent(
                 f"""
                 from {module_name} import {function_name}
-                
+
                 if __name__ == "__main__":
                     {function_name}()
                 """
@@ -54,3 +54,4 @@ class StreamlitCLIWrapper:
             function_name="hello_world",
             module_name="rhdzmota.wrappers._streamlit.example_views"
         )
+
