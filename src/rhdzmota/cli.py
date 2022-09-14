@@ -42,3 +42,13 @@ class CLI(CLIBase):
             with open(filename, "w") as file:
                 file.write(code)
         return f"\n\n{code}"
+
+    @CLIBase.Formatter()
+    def frontend(self, function_name: str, module_name: str, temp_filepath: Optional[str] = None):
+        from .wrappers import StreamlitCLIWrapper
+
+        return StreamlitCLIWrapper().execute_function(
+            function_name=function_name,
+            module_name=module_name,
+            temp_filepath=temp_filepath,
+        )
