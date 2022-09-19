@@ -23,6 +23,11 @@ setup(
     package_dir={
         "": "src"
     },
+    package_data={
+        "": [
+            os.path.join("iso3166", "datafiles", "*.json"),
+        ]
+    },
     scripts=[
         "bin/rhdzmota"
     ],
