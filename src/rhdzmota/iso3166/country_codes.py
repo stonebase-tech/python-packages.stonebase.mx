@@ -51,4 +51,4 @@ class _CountryEnumBase(enum.Enum):
         return enum.Enum(self.name, payload)
 
 
-Country = _CountryEnumBase("Country", get_country_metadata())
+Country = _CountryEnumBase("Country", get_country_metadata())  # type: ignore
