@@ -1,3 +1,4 @@
+import os
 import time
 from typing import Optional
 
@@ -52,3 +53,8 @@ class CLI(CLIBase):
             module_name=module_name,
             temp_filepath=temp_filepath,
         )
+
+    @CLIBase.Formatter()
+    def version(self):
+        with open(os.path.join(os.path.dirname(__file__), "VERSION"), "r") as file:
+            return file.read()
