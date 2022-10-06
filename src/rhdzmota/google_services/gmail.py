@@ -14,7 +14,7 @@ except ImportError:
     logger.error("Import error detected, try: pip install rhdzmota[google]")
     raise
 
-from .auth import get_credentials_via_appflow
+from .auth import get_credentials_via_appflow  # noqa
 
 
 GMAIL_DEFAULT_MESSAGE_AUTHOR = get_environ_variable(

@@ -39,6 +39,7 @@ def get_client_configs(
         }
     }
 
+
 def get_credentials_via_appflow(
         scopes: List[str],
         client_id: Optional[str] = None,
