@@ -48,7 +48,7 @@ class ServerWrapper:
         password = password or EMAIL_SERVER_LOGIN_PASSWORD
         server_instance = self.get_server(disable_tls=disable_tls, **configs)
         logger.info("Logging to server...")
-        server_instance.login(user=user, password=password)
+        server_instance.login(user=user, password=password)  # type: ignore
         return self
 
     def __enter__(self):
