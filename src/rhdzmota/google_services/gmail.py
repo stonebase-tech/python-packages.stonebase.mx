@@ -1,9 +1,8 @@
 import base64
-from dataclasses import dataclass
 from typing import Dict, List, Optional
-from email.message import EmailMessage
 
 from rhdzmota.settings import logger_manager, get_environ_variable
+from rhdzmota.mail.message import Message
 
 logger = logger_manager.get_logger(name=__name__)
 
@@ -21,26 +20,6 @@ GMAIL_DEFAULT_MESSAGE_AUTHOR = get_environ_variable(
     name="GMAIL_DEFAULT_MESSAGE_AUTHOR",
     default="me"
 )
-
-
-@dataclass
-class Message:
-    recipient: str
-    subject: str
-    content: str
-    author: str = GMAIL_DEFAULT_MESSAGE_AUTHOR
-
-    def to_email_message(self) -> EmailMessage:
-        message = EmailMessage()
-        message["From"] = self.author or GMAIL_DEFAULT_MESSAGE_AUTHOR
-        message["To"] = self.recipient
-        message["Subject"] = self.subject
-        message.set_content(self.content)
-        return message
-
-    def set_recipient(self, recipient: str):
-        self.recipient = recipient
-        return self
 
 
 class GMail:

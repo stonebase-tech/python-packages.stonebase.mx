@@ -135,6 +135,16 @@ RHDZMOTA_DAEMON_NAME = get_environ_variable(
     name="RHDZMOTA_DAEMON_NAME",
 )
 
+# Mail
+
+EMAIL_SERVER_LOGIN_USER = get_environ_variable(
+    name="EMAIL_SERVER_LOGIN_USER",
+)
+
+EMAIL_SERVER_LOGIN_PASSWORD = get_environ_variable(
+    name="EMAIL_SERVER_LOGIN_PASSWORD",
+)
+
 # JWT
 
 JWT_ENCRYPTION_ALGORITHM: str = get_environ_variable(
