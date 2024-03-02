@@ -1,8 +1,8 @@
 # RHDZMOTA Package
 
-[Rodrigo H. Mota](https://rhdzmota.com)'s personal python package that contains general tooling that facilitate development of software engineering, data engineering, and machine learning projects.
+[Rodrigo H. Mota](https://rhdzmota.com)'s personal python package that contains general tooling for facilitating the development of software engineering, data engineering, and machine learning projects.
 
-**Aren't toolbox packages usually heavy?** One main concern on designing toolbox packages shared across projects is that the dependency set will become too heavy. This is specially true for data-related projects (e.g., installing pandas, request, tensorflow, sklearn, etc). To solve this issue, the `rhdzmota` package offers "package extensions" that can be installed by specifying their corresponding tags. This allows us to "split" the dependency set and functionality in sub-python packages; resulting in a lightweight and modular toolbox!
+**Aren't toolbox packages usually heavy?** One main concern of designing toolbox packages shared across projects is that the dependency set often becomes too heavy. This is specially true for data-related projects (e.g., installing pandas, request, tensorflow, sklearn, etc). To solve this issue, the `rhdzmota` package offers "package extensions" that can be installed by specifying their corresponding tags. This allows us to "split" the dependency set and functionality in sub-python packages; resulting in a lightweight and modular toolbox!
 
 **How can I install a package extension?** You just need to specify their corresponing "extras-require" tag. Example:
 

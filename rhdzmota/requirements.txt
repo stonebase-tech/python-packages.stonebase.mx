@@ -3,7 +3,7 @@
 # Default Exclusive
 fire==0.4.0: default
 pyyaml==6.0.1: default
-requests==2.28.1: default
+requests==2.31.0: default
 
 # Develop Exclusive
 pycodestyle==2.7.0: develop

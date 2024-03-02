@@ -1,0 +1,38 @@
+name: Check Application Unit-Testing
+
+on: [pull_request]
+
+jobs:
+  python_unittesting:
+    strategy:
+      matrix:
+        path:
+          - rhdzmota
+          - extensions/hello_world
+    name: Testing Check ${{ matrix.path }}
+    runs-on: ubuntu-20.04
+    steps:
+      - name: clone-repo
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: target-changed-files-${{ matrix.path }}
+        id: target-changed-files
+        uses: tj-actions/changed-files@v36
+        with:
+          files: ${{ matrix.path }}/**
+      - name: install-python
+        if: steps.target-changed-files.outputs.any_changed
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10.12"
+      - name: install-requirements
+        if: steps.target-changed-files.outputs.any_changed
+        run: |
+          python -m pip install -r requirements-develop.txt
+          python -m pip install -e ./${{ matrix.path }}
+      - name: test-check-${{ matrix.path }}
+        if: steps.target-changed-files.outputs.any_changed
+        run: |
+          bash tests-unit.sh ${{ matrix.path }}
+          bash tests-coverage.sh ${{ matrix.path }}
