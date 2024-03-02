@@ -62,7 +62,7 @@ setup(
             os.path.join("iso3166", "datafiles", "*.json"),
         ]
     },
-    entry_points = {
+    entry_points={
         "console_scripts": [
             "rhdzmota=rhdzmota.cli:main",
         ]
