@@ -1,7 +1,5 @@
-import fire
-
-from .cli import CLI
+from rhdzmota.cli import main
 
 
 if __name__ == "__main__":
-    fire.Fire(CLI())
+    main()

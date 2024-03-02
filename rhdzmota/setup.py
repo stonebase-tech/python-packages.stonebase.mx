@@ -1,6 +1,6 @@
 import os
 from typing import Dict, List
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 
 with open("requirements.txt", "r") as file:
     requirements = [line for line in file.read().splitlines() if line and not line.startswith("#")]
@@ -50,10 +50,10 @@ setup(
     description="RHDZMOTA Package",
     long_description=readme,
     long_description_content_type='text/markdown',
-    url="https://github.com/rhdzmota/rhdzmota-package",
+    url="https://github.com/rhdzmota/package.rhdzmota.com",
     author="Rodrigo H. Mota",
     author_email="info@rhdzmota.com",
-    packages=find_packages(where="src"),
+    packages=find_namespace_packages(where="src"),
     package_dir={
         "": "src"
     },
@@ -62,9 +62,11 @@ setup(
             os.path.join("iso3166", "datafiles", "*.json"),
         ]
     },
-    scripts=[
-        "bin/rhdzmota"
-    ],
+    entry_points = {
+        "console_scripts": [
+            "rhdzmota=rhdzmota.cli:main",
+        ]
+    },
     install_requires=dependencies["default"],
     extras_require=dependencies,
     include_package_data=True,

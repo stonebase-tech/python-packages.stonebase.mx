@@ -2,9 +2,9 @@ import os
 import time
 from typing import Optional
 
-from .settings import logger_manager
-from .interface.cli import CLIBase
-from .utils.gists import Gist
+from rhdzmota.settings import logger_manager
+from rhdzmota.interface.cli import CLIBase
+from rhdzmota.utils.gists import Gist
 
 
 logger = logger_manager.get_logger(name=__name__)
@@ -56,5 +56,11 @@ class CLI(CLIBase):
 
     @CLIBase.Formatter()
     def version(self):
-        with open(os.path.join(os.path.dirname(__file__), "VERSION"), "r") as file:
+        with open(os.path.join(os.path.dirname(__path__), "VERSION"), "r") as file:
             return file.read()
+
+
+def main():
+    import fire
+
+    fire.Fire(CLI())
