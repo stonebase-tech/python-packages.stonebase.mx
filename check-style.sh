@@ -1,1 +1,1 @@
-pycodestyle src/rhdzmota --max-line-length 120
+pycodestyle ${1} --max-line-length 120

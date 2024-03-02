@@ -1,4 +1,5 @@
 import os
+import enum
 import logging
 from typing import Callable, Dict, Literal, NoReturn, Optional, Union, TypeVar, overload
 from logging.config import dictConfig
@@ -37,6 +38,25 @@ def get_environ_variable(
         os.environ.get(name) or (lambda: (_ for _ in ())
                                  .throw(ValueError(f"Missing environ variable: {name}")))()
     )
+
+
+class Env(enum.Enum):
+    DEFAULT_PYTHON_HANDLER_LEVEL = get_environ_variable(
+        name="DEFAULT_PYTHON_HANDLER_LEVEL",
+        default="INFO",
+    )
+
+    @staticmethod
+    def get(
+            name: str,
+            default: Optional[str] = None,
+            enforce: bool = False,
+    ) -> str:
+        return get_environ_variable(
+            name=name,
+            default=default,
+            enforce=enforce,
+        )
 
 
 # Logger configuration
