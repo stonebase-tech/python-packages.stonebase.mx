@@ -8,7 +8,6 @@ jobs:
       matrix:
         path:
           - rhdzmota
-          - extensions/ext_hello
     name: Style Check ${{ matrix.path }}
     runs-on: ubuntu-20.04
     steps:
@@ -20,7 +19,7 @@ jobs:
         id: target-changed-files
         uses: tj-actions/changed-files@v36
         with:
-          files: ${{ matrix.target }}/**
+          files: ${{ matrix.path }}/**
       - name: install-python
         if: steps.target-changed-files.outputs.any_changed
         uses: actions/setup-python@v4
