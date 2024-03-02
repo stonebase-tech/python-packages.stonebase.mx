@@ -50,8 +50,8 @@ class Env(enum.Enum):
     def get(
             name: str,
             default: Optional[str] = None,
-            enforce: bool = False
-        ) -> str:
+            enforce: bool = False,
+    ) -> str:
         return get_environ_variable(
             name=name,
             default=default,
