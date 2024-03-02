@@ -2,7 +2,7 @@
 
 # Default Exclusive
 fire==0.4.0: default
-pyyaml==5.4.1: default
+pyyaml==6.0.1: default
 
 # Develop Exclusive
 pycodestyle==2.7.0: develop
