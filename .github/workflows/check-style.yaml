@@ -8,6 +8,7 @@ jobs:
       matrix:
         path:
           - rhdzmota
+          - extensions/hello_world
     name: Style Check ${{ matrix.path }}
     runs-on: ubuntu-20.04
     steps:
