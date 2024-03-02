@@ -8,11 +8,16 @@ on:
       - PRD
 
 jobs:
-  build:
+  python_publish:
+    strategy:
+      matrix:
+        path:
+          - rhdzmota
+          - extensions/hello_world
     # Check if PR was closed due to a merge.
     if: github.event.pull_request.merged == true
-    # Create a job on Ubuntu 18.04
-    name: Build & Publish!
+    # Create a job on Ubuntu
+    name: Python Package Build & Publish: ${{ matrix.path }}
     runs-on: ubuntu-20.04
     steps:
       # Copy github repo with submodules
@@ -20,20 +25,28 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
+      - name: target-changed-files-${{ matrix.path }}
+        id: target-changed-files
+        uses: tj-actions/changed-files@v36
+        with:
+          files: ${{ matrix.path }}/**
       # Install python
       - name: install-python
+        if: steps.target-changed-files.outputs.any_changed
         uses: actions/setup-python@v4
         with:
           python-version: '3.10.12'
       - name: install-twine
+        if: steps.target-changed-files.outputs.any_changed
         run: |
           python -m pip install --upgrade pip
           python -m pip install setuptools wheel twine
       # Build and publish!
       - name: build-and-publish
+        if: steps.target-changed-files.outputs.any_changed
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
-          (cd rhdzmota; python setup.py sdist)
-          twine upload -u ${TWINE_USERNAME} -p ${TWINE_PASSWORD} --skip-existing rhdzmota/dist/*
+          (cd ${{ matrix.path }}; python setup.py sdist)
+          twine upload -u ${TWINE_USERNAME} -p ${TWINE_PASSWORD} --skip-existing ${{ matrix.path }}/dist/*
