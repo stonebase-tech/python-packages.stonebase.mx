@@ -66,7 +66,7 @@ setup(
     },
     packages=[
         package
-        for package in find_namespace_packages(where=".")
+        for package in find_namespace_packages(where=EXT_CODEBASE_PATH)
         if package.startswith("rhdzmota")
     ],
     include_package_data=True,
