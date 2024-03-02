@@ -2,10 +2,16 @@ import os
 from typing import Dict, List
 from setuptools import setup, find_namespace_packages
 
+
+CODEBASE_PATH = os.environ.get(
+    "CODEBASE_PATH",
+    default=os.path.join("src", "main"),
+)
+
 with open("requirements.txt", "r") as file:
     requirements = [line for line in file.read().splitlines() if line and not line.startswith("#")]
 
-with open(os.path.join("src", "rhdzmota", "VERSION"), "r") as file:
+with open(os.path.join(CODEBASE_PATH, "rhdzmota", "VERSION"), "r") as file:
     version = file.read().strip()
 
 with open("README.md") as file:
@@ -53,9 +59,9 @@ setup(
     url="https://github.com/rhdzmota/package.rhdzmota.com",
     author="Rodrigo H. Mota",
     author_email="info@rhdzmota.com",
-    packages=find_namespace_packages(where="src"),
+    packages=find_namespace_packages(where=CODEBASE_PATH),
     package_dir={
-        "": "src"
+        "": CODEBASE_PATH
     },
     package_data={
         "": [
