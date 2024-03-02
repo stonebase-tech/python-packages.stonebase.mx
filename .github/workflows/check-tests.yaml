@@ -30,7 +30,7 @@ jobs:
         if: steps.target-changed-files.outputs.any_changed
         run: |
           python -m pip install -r requirements-develop.txt
-          python -m pip install -e ./{{ matrix.path }}
+          python -m pip install -e ./${{ matrix.path }}
       - name: test-check-${{ matrix.path }}
         if: steps.target-changed-files.outputs.any_changed
         run: |
