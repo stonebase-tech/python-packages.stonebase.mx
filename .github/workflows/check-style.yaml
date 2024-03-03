@@ -9,6 +9,7 @@ jobs:
         path:
           - rhdzmota
           - extensions/hello_world
+          - extensions/streamlit_webapps
     name: Style Check ${{ matrix.path }}
     runs-on: ubuntu-20.04
     steps:

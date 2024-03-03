@@ -14,6 +14,7 @@ jobs:
         path:
           - rhdzmota
           - extensions/hello_world
+          - extensions/streamlit_webapps
     # Check if PR was closed due to a merge.
     if: github.event.pull_request.merged == true
     # Create a job on Ubuntu
