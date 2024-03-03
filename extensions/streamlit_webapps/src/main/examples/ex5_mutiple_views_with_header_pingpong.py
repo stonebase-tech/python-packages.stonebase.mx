@@ -23,6 +23,7 @@ class PingView(PageView, PingPongHeader):
         if st.button("Go pong!"):
             return self.forward(PongView.refname)
 
+
 class PongView(PageView, PingPongHeader):
 
     def view(self, **kwargs):

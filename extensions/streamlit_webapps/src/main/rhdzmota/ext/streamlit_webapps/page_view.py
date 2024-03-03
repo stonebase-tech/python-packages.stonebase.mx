@@ -12,7 +12,7 @@ class PageViewDescriptorRefname:
         cls = objtype or type(obj)
         default = getattr(
             cls,
-            "overwrite_refname", 
+            "overwrite_refname",
         ) or cls.__name__
         if not obj:
             return default
@@ -57,7 +57,7 @@ class PageView(PageViewDescriptors, PageViewSessionKeys):
     page_configs_path: Optional[str] = None
     overwrite_instance_refname: Optional[str] = None
     page_configs_kwargs: dict = field(default_factory=dict)
-    
+
     @classmethod
     def inline(cls, view_name: str, func: Callable, **kwargs) -> 'PageView':
         return type(view_name, (cls, ), {"view": func, **kwargs})
@@ -81,7 +81,6 @@ class PageView(PageViewDescriptors, PageViewSessionKeys):
             **page_configs_constructor,
         }
 
-
     def __enter__(self) -> 'PageView':
         # Page config should only be executed ONCE and
         # must be the first streamlit command.
@@ -90,12 +89,11 @@ class PageView(PageViewDescriptors, PageViewSessionKeys):
         st.session_state[self.session_key_page_current] = self.refname
         # Register the current page as the first page in history
         key_page_history = self.session_key_page_history
-        if not key_page_history in st.session_state:
+        if key_page_history not in st.session_state:
             st.session_state[key_page_history] = []
         # Execute on-start method (you can use this as a page header)
         if isinstance(self, PageViewHeader):
             self.on_start()
-        
         return self
 
     def __exit__(self, *args):
@@ -107,7 +105,7 @@ class PageView(PageViewDescriptors, PageViewSessionKeys):
             page_key: str,
             exclude_from_history: bool = False,
             **kwargs,
-    ): 
+    ):
         # Get the current page
         page_source = st.session_state[self.session_key_page_current]
         page_source_kwargs = st.session_state.get(self.session_key_page_current_input_kwargs) or {}

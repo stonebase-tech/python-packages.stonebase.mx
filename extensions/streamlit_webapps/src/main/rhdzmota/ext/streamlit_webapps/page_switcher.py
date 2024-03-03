@@ -29,7 +29,7 @@ class PageSwitcher(enum.Enum):
 
     @classmethod
     def run(cls, initial_page_key: str, **initial_page_kwargs):
-        # On first execution, save the inital page key with their corresponding kwargs 
+        # On first execution, save the inital page key with their corresponding kwargs
         page_current = st.session_state.get(PageView.session_key_page_current, None)
         if not page_current:
             st.session_state[PageView.session_key_page_current] = initial_page_key

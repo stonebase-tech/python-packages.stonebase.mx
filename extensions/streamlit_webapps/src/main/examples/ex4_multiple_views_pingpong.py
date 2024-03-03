@@ -12,6 +12,7 @@ class PingView(PageView):
         if st.button("Go pong!"):
             return self.forward(PongView.refname)
 
+
 class PongView(PageView):
 
     def view(self, **kwargs):
