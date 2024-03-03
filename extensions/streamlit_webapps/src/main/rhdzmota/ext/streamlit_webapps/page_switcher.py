@@ -9,21 +9,21 @@ from rhdzmota.ext.streamlit_webapps.page_view import (
 )
 
 
-class PageSwitcher(enum.Enum):
+class PageViewSwitcher(enum.Enum):
 
     @classmethod
-    def from_pages(
+    def from_page_views(
             cls,
             switcher_name: str,
-            pages: List[PageView],
+            page_views: List[PageView],
             disable_canonical_error: bool = False,
-    ) -> 'PageSwitcher':
+    ) -> 'PageViewSwitcher':
         canonical_error_item = ("canonical_error", CanonicalErrorView())
         return cls(
             value=switcher_name,
             names=[
-                (page.refname, page)
-                for page in pages
+                (page_view.refname, page_view)
+                for page_view in page_views
             ] + ([] if disable_canonical_error else [canonical_error_item]),
         )
 
