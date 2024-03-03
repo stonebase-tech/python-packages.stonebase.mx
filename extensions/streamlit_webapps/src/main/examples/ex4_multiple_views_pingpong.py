@@ -1,7 +1,7 @@
 import streamlit as st
 
 from rhdzmota.ext.streamlit_webapps.page_view import PageView
-from rhdzmota.ext.streamlit_webapps.page_switcher import PageSwitcher
+from rhdzmota.ext.streamlit_webapps.page_view_switcher import PageViewSwitcher
 
 
 class PingView(PageView):
@@ -25,8 +25,8 @@ class PongView(PageView):
 if __name__ == "__main__":
     ping = PingView(page_title="Ping", page_layout="centered")
     pong = PongView(page_title="Pong", page_layout="centered")
-    page_switcher = PageSwitcher.from_pages(
+    switcher = PageViewSwitcher.from_page_views(
         switcher_name="pingpong",
-        pages=[ping, pong],  # Order is not relevant here.
+        page_views=[ping, pong],  # Order is not relevant here.
     )
-    page_switcher.run(initial_page_key=ping.refname)
+    switcher.run(initial_page_key=ping.refname)
