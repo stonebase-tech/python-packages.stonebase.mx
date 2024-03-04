@@ -2,5 +2,5 @@ include bin/rhdzmota
 include requirements.txt
 include requirements-develop.txt
 include requirements-extras.txt
-include src/rhdzmota/iso3166/datafiles/*.json
-include src/rhdzmota/VERSION
+include src/main/rhdzmota/iso3166/datafiles/*.json
+include src/main/rhdzmota/VERSION
