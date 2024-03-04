@@ -17,6 +17,7 @@ jupyter==1.0.0: develop
 
 # RHDZMOTA Extensions
 rhdzmota-extension-hello-world==0.1.0: ext.hello_world
+rhdzmota-extension-streamlit-webapps==0.1.0: ext.streamlit_webapps
 
 # Tools Exclusive
 rsa==4.8: default
