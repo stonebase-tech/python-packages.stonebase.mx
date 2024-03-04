@@ -9,6 +9,7 @@ jobs:
         path:
           - rhdzmota/src
           - extensions/hello_world/src
+          - extensions/streamlit_webapps/src
   build:
     name: Type Check ${{ matrix.path }}
     runs-on: ubuntu-20.04
