@@ -42,6 +42,25 @@ class CLIBase:
     def now(self, local: bool = False) -> str:
         return (dt.datetime.utcnow() if not local else dt.datetime.now()).isoformat()
 
+    def hello(
+            self,
+            recipient: Optional[str] = None,
+            sleep: int = 1,
+            delegate: bool = False,
+    ):
+        import time
+
+        recipient = recipient or "world"
+        if sleep:
+            time.sleep(sleep)
+        try:
+            from rhdzmota.celery_workers.hello import worker
+            if delegate:
+                return worker.delay(name=recipient)
+        except ImportError:
+            return f"Hello, {recipient}!"
+
+
     def on_start(self):
         logger.info("CLI Method not implemented: on_start")
 
