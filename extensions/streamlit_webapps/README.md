@@ -69,12 +69,36 @@ if __name__ == "__main__":
 
 ```
 
+## CLI CMD: `run_from_file`
+
+You can use the `cli interface` to execute streamlit applications:
+
+```commandline
+$ rhdzmota.ext execute streamlit_webapps --command run_from_file \
+    --path {{path/to/file.py}}
+```
+* Use this command when you have a streamlit entrypoint python file.
+
+```commandline
+$ rhdzmota.ext execute streamlit_Webapps --command run_from_refname \
+    --function_name {{function-name}} \
+    --module_name {{module_name}}
+```
+* Use this command when you want to execute a function accessible in your current python runtime.
+
+Example:
+
+```commandline
+$ rhdzmota.ext execute streamlit_webapps --command run_from_file \
+    --path extensions/streamlit_webapps/src/examples/ex1_plain_page_view.py
+```
+
 ## Linked Installation
 
 Most extensions can be installed indirectly via the main package by providing an extra-dependency tag. Example:
 
 ```commandline
-$ pip install 'rhdzmota[ext.hello_world]'
+$ pip install 'rhdzmota[ext.streamlit_webapps]'
 ```
 * General pattern: `'rhdzmota[ext.<extension-slug>]'`
 
@@ -83,14 +107,14 @@ $ pip install 'rhdzmota[ext.hello_world]'
 Package extensions can also be installed independently. For example:
 
 ```commandline
-$ pip install rhdzmota_extension_hello_world
+$ pip install rhdzmota_extension_streamlit_webapps
 ```
 * General pattern: `rhdzmota_extension_<extension-slug>`
 
 You can also install them locally:
 
 ```commandline
-$ EXT_BUILD_LOCAL=1 pip install -e extensions/hello_world
+$ EXT_BUILD_LOCAL=1 pip install -e extensions/streamlit_webapps
 ```
 * General pattern: `EXT_BUILD_LOCAL=1 pip install -e path/to/extension`
 
