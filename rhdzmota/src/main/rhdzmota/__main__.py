@@ -1,4 +1,4 @@
-from rhdzmota.cli import main
+from rhdzmota.cli.main import main
 
 
 if __name__ == "__main__":

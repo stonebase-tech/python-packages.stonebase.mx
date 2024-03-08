@@ -70,7 +70,8 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "rhdzmota=rhdzmota.cli:main",
+            "rhdzmota=rhdzmota.cli.main:main",
+            "rhdzmota.ext=rhdzmota.cli.ext:ext",
         ]
     },
     install_requires=dependencies["default"],

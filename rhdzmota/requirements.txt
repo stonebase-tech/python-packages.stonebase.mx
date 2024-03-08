@@ -1,4 +1,4 @@
-# Package Tags: default, develop, tools, google_services, celery, backend, frontend
+# Package Tags: default, develop, tools, google_services, celery, backend
 
 # Default Exclusive
 fire==0.4.0: default
@@ -17,7 +17,7 @@ jupyter==1.0.0: develop
 
 # RHDZMOTA Extensions
 rhdzmota-extension-hello-world==0.1.0: ext.hello_world
-rhdzmota-extension-streamlit-webapps==0.1.0: ext.streamlit_webapps
+rhdzmota-extension-streamlit-webapps==0.2.0: ext.streamlit_webapps
 
 # Tools Exclusive
 rsa==4.8: default
@@ -36,8 +36,5 @@ google-auth-oauthlib==0.5.3: google_services
 Flask==2.0.1: backend
 waitress==2.0.0: backend
 
-# Frontend Utilities Exclusive
-streamlit==1.12.2: frontend
-
 # Backend <> Frontend <> Tools
-PyJWT==2.3.0: backend, frontend, tools
+PyJWT==2.3.0: backend, tools
