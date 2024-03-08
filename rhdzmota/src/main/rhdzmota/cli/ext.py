@@ -20,7 +20,6 @@ class CLIExt(CLIBase):
         self.namespace = self.overwrite_namespace or "rhdzmota.ext"
         # Define import patterns
         super(CLIExt, self).__init__()
-        
 
     def get_import_pattern(self, extension: str) -> str:
         return ".".join(
@@ -29,8 +28,7 @@ class CLIExt(CLIBase):
                 extension,
                 self.module_name_cli,
             ]
-        ) 
-
+        )
 
     def get_extension_module(self, extension: str):
         return importlib.import_module(self.get_import_pattern(extension=extension))

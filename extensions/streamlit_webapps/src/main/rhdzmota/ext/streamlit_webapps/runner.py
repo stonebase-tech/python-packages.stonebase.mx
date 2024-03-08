@@ -37,7 +37,6 @@ class Runner:
             for line in [key, val]
         ]
         self.streamlit_climodule.main()
-        #getattr(self.streamlit_climodule, "main")()
 
     def start_from_content(self, content: str, path: Optional[str] = None):
         filepath = create_temporal_file(

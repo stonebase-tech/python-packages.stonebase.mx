@@ -33,7 +33,7 @@ class CLIBase:
     def __init__(
             self,
             extension_import_pattern: Optional[str] = None,
-        ):
+    ):
         self.extension_import_pattern = extension_import_pattern
         self.now = dt.datetime.utcnow().isoformat()
         self.start = time.perf_counter()

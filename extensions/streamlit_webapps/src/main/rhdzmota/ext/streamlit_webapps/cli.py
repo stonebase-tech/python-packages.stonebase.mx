@@ -3,7 +3,7 @@ from rhdzmota.ext.streamlit_webapps.runner import Runner
 
 
 class CLI(CLIBase):
-    
+
     @property
     def _streamlit_runner(self) -> Runner:
         return Runner()
