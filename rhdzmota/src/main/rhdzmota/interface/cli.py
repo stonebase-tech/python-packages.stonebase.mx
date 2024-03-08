@@ -60,7 +60,6 @@ class CLIBase:
         except ImportError:
             return f"Hello, {recipient}!"
 
-
     def on_start(self):
         logger.info("CLI Method not implemented: on_start")
 
