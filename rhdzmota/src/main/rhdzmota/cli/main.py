@@ -45,16 +45,6 @@ class CLI(CLIBase):
         return f"\n\n{code}"
 
     @CLIBase.Formatter()
-    def frontend(self, function_name: str, module_name: str, temp_filepath: Optional[str] = None):
-        from .wrappers import StreamlitCLIWrapper
-
-        return StreamlitCLIWrapper().execute_function(
-            function_name=function_name,
-            module_name=module_name,
-            temp_filepath=temp_filepath,
-        )
-
-    @CLIBase.Formatter()
     def version(self):
         with open(os.path.join(os.path.dirname(__path__), "VERSION"), "r") as file:
             return file.read()
