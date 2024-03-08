@@ -12,21 +12,6 @@ logger = logger_manager.get_logger(name=__name__)
 
 class CLI(CLIBase):
 
-    @CLIBase.Formatter(default=str)
-    def hello(self, world: Optional[str] = None, sleep: int = 1, delegate: bool = False):
-        world = world or "world"
-        time.sleep(sleep)
-        try:
-            from .celery_workers.hello import worker
-
-            if delegate:
-                return worker.delay(name=world)
-
-            logger.debug("CLI Hello command execution.")
-            return worker(name=world)
-        except ImportError:
-            return f"Hello, {world}!"
-
     @CLIBase.Formatter()
     def gist(
             self,
@@ -53,4 +38,6 @@ class CLI(CLIBase):
 def main():
     import fire
 
+    with CLI() as cli:
+        fire.Fire(cli)
     fire.Fire(CLI())
