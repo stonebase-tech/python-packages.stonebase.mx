@@ -1,4 +1,5 @@
 import os
+import json
 from typing import Dict, List
 from setuptools import setup, find_namespace_packages
 
@@ -6,6 +7,11 @@ from setuptools import setup, find_namespace_packages
 CODEBASE_PATH = os.environ.get(
     "CODEBASE_PATH",
     default=os.path.join("src", "main"),
+)
+
+DEPS_FILE = os.environ.get(
+    "DEPS_FILE",
+    default="",
 )
 
 with open("requirements.txt", "r") as file:
@@ -20,13 +26,15 @@ with open("README.md") as file:
 
 def get_extras_requires(requirement_list: List[str]) -> Dict[str, List[str]]:
     extra_requires = {
-        "default": set([]),
+        "baseline": set([]),
+        "shared": set([]),
         "all": set([]),
     }
+    exclude = {}
     for line in requirement_list:
-        line_with_tag = ":" in line
+        line_with_tags = ":" in line
         line_comment = line.strip().startswith("#")
-        if line_comment or not line_with_tag:
+        if line_comment or not line_with_tags:
             print("Skipping requirement line: ", line)
             continue
         requirement, _, tags = line.partition(":")
@@ -36,19 +44,28 @@ def get_extras_requires(requirement_list: List[str]) -> Dict[str, List[str]]:
         # Register clean requirement with corresponding tags
         for tag in tags.split(","):
             clean_tag = tag.strip()
-            extra_requires[clean_tag] = extra_requires.get(clean_tag, set([])).union({clean_requirement})
+            if not clean_tag.startswith("~"):
+                extra_requires[clean_tag] = extra_requires.get(clean_tag, set([])).union({clean_requirement})
+            else:
+                reference_tag = clean_tag.replace("~", "").strip()
+                exclude[reference_tag] = exclude.get(reference_tag, set([])).union({clean_requirement})
+        if "shared" in tags and "~" not in tags:
+            extra_requires["baseline"] = extra_requires.get("baseline", set([])).union({clean_requirement})
     # Add the default requirements into all tags
     for tag in extra_requires.keys():
-        if tag in ["default", "all"]:
+        if tag in ["shared", "all", "baseline"]:
             continue
-        extra_requires[tag] = extra_requires[tag].union(extra_requires["default"])
+        extra_requires[tag] = extra_requires[tag].union(extra_requires["shared"])
     return {
-        tag: list(reqs)
+        tag: list(reqs - exclude.get(tag, set([])))
         for tag, reqs in extra_requires.items()
     }
 
 
 dependencies = get_extras_requires(requirement_list=requirements)
+if DEPS_FILE:
+    with open(DEPS_FILE, "w") as file:
+        file.write(json.dumps(dependencies, indent=4))
 
 setup(
     name="rhdzmota",
@@ -74,7 +91,7 @@ setup(
             "rhdzmota.ext=rhdzmota.cli.ext:ext",
         ]
     },
-    install_requires=dependencies["default"],
+    install_requires=dependencies["baseline"],
     extras_require=dependencies,
     include_package_data=True,
     python_requires=">=3.8.10"
