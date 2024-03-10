@@ -27,7 +27,7 @@ with open("README.md") as file:
 def get_extras_requires(requirement_list: List[str]) -> Dict[str, List[str]]:
     extra_requires = {
         "baseline": set([]),
-        "shared": set([]),
+        "standalone": set([]),
         "all": set([]),
     }
     exclude = {}
@@ -49,13 +49,13 @@ def get_extras_requires(requirement_list: List[str]) -> Dict[str, List[str]]:
             else:
                 reference_tag = clean_tag.replace("~", "").strip()
                 exclude[reference_tag] = exclude.get(reference_tag, set([])).union({clean_requirement})
-        if "shared" in tags and "~" not in tags:
+        if "standalone" in tags and "~" not in tags:
             extra_requires["baseline"] = extra_requires.get("baseline", set([])).union({clean_requirement})
     # Add the default requirements into all tags
     for tag in extra_requires.keys():
-        if tag in ["shared", "all", "baseline"]:
+        if tag in ["standalone", "all", "baseline"]:
             continue
-        extra_requires[tag] = extra_requires[tag].union(extra_requires["shared"])
+        extra_requires[tag] = extra_requires[tag].union(extra_requires["standalone"])
     return {
         tag: list(reqs - exclude.get(tag, set([])))
         for tag, reqs in extra_requires.items()
