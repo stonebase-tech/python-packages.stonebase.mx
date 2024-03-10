@@ -10,6 +10,10 @@ EXT_BUILD_LOCAL = int(os.environ.get(
     "EXT_BUILD_LOCAL",
     default="0",
 ))
+EXT_BATTERIES_INCLUDED = int(os.environ.get(
+    "EXT_BATTERIES_INCLUDED",
+    default="0",
+))
 
 with open("README.md", "r") as file:
     readme = file.read()
@@ -21,7 +25,8 @@ with open("requirements.txt", "r") as file:
         if req and not req.startswith("#")
     ]
     # If local build, do not install `rhdzmota` from pypi
-    requirements.pop(requirements.index("rhdzmota"))
+    if not EXT_BATTERIES_INCLUDED or EXT_BUILD_LOCAL:
+        requirements.pop(requirements.index("rhdzmota"))
 
 version_filename = "streamlit_webapps_version"
 version_filepath = os.path.join(
