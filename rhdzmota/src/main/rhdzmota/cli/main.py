@@ -29,10 +29,21 @@ class CLI(CLIBase):
                 file.write(code)
         return f"\n\n{code}"
 
-    @CLIBase.Formatter()
-    def version(self):
-        with open(os.path.join(os.path.dirname(__path__), "VERSION"), "r") as file:
+    @property
+    def version_filepath(self) -> str:
+        path = os.path.join(os.path.dirname(__file__), "..")
+        return os.path.join(path, "VERSION")
+
+    @property
+    def version_value(self) -> str:
+        with open(self.version_filepath, "r") as file:
             return file.read()
+
+    @CLIBase.Formatter()
+    def version(self, path: bool = False):
+        if not path:
+            return self.version_value
+        return self.version_filepath
 
 
 def main():

@@ -1,10 +1,28 @@
-# Package Tags: shared, develop, tools, google_services, celery, backend
+# RHDZMOTA Standard Dependency Tags: all, standalone, baseline
+# Use the standalone tag to identify all the dependencies that correspond to
+#   the main package (i.e., rhdzmota).
+# RHDZMOTA Additional tags: develop
+# RHDZMOTA Additional tags (to be deprecated): tools, google_services, celery, backend
+# RHDZMOTA Extensions Tags:
+#   Reference to an extension fullname & version with a tag
+#   in the following format: ext.{{extension-slug}}
+# EXCLUDE Operator for extensions:
+#   All the dependencies from the base package (identified as with the standalone tag)
+#   will be intalled EXCEPT if you explicitly exclude them.
+#   You can exclude a dependency from you package
+#   by using the following notation: ~ext.{{extension-slug}}
+# NOTES:
+#   - All the standalone dependencies that have not been excluded from any extension
+#     conform another tag called the `baseline` tag (created programatically via the setup.py).
+#     As a result, baseline is a subset of standalone.
+#   - All dependencies get incorporated into the `all` tag for debugging purposes.
+
 
 # Default Exclusive
-fire==0.4.0: shared
-pyyaml==6.0.1: shared
-requests==2.31.0: shared
-sentry-sdk==1.40.6: shared, ~ext.streamlit_webapps
+fire==0.4.0: standalone
+pyyaml==6.0.1: standalone
+requests==2.31.0: standalone
+sentry-sdk==1.40.6: standalone, ~ext.streamlit_webapps
 
 # Develop Exclusive
 pycodestyle==2.7.0: develop
@@ -18,11 +36,11 @@ jupyter==1.0.0: develop
 
 # RHDZMOTA Extensions
 rhdzmota-extension-hello-world==0.1.0: ext.hello_world
-rhdzmota-extension-streamlit-webapps==0.3.0: ext.streamlit_webapps
+rhdzmota-extension-streamlit-webapps==0.4.0: ext.streamlit_webapps
 
 # Tools Exclusive
-rsa==4.8: shared
-psutil==5.9.2: shared
+rsa==4.8: standalone
+psutil==5.9.2: standalone
 
 # Celery Exclusive
 celery[redis]==5.1.2: celery
