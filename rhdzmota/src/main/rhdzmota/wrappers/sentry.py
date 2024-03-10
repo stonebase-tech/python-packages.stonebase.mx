@@ -35,7 +35,6 @@ class SentrySDKConfig:
             traces_sample_rate=self.traces_sample_rate,
             profiles_sample_rate=self.profiles_sample_rate,
         ) or True
-        
 
     @property
     def dsn(self) -> Optional[str]:
