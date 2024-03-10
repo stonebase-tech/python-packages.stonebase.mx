@@ -26,7 +26,8 @@ with open("requirements.txt", "r") as file:
     ]
     # If local build, do not install `rhdzmota` from pypi
     if not EXT_BATTERIES_INCLUDED or EXT_BUILD_LOCAL:
-        requirements.pop(requirements.index("rhdzmota"))
+        index = next(i for i, req in enumerate(requirements) if req.startswith("rhdzmota"))
+        requirements.pop(index)
 
 version_filename = "streamlit_webapps_version"
 version_filepath = os.path.join(
