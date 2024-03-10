@@ -1,9 +1,10 @@
-# Package Tags: default, develop, tools, google_services, celery, backend
+# Package Tags: shared, develop, tools, google_services, celery, backend
 
 # Default Exclusive
-fire==0.4.0: default
-pyyaml==6.0.1: default
-requests==2.31.0: default
+fire==0.4.0: shared
+pyyaml==6.0.1: shared
+requests==2.31.0: shared
+sentry-sdk==1.40.6: shared, ~ext.streamlit_webapps
 
 # Develop Exclusive
 pycodestyle==2.7.0: develop
@@ -17,11 +18,11 @@ jupyter==1.0.0: develop
 
 # RHDZMOTA Extensions
 rhdzmota-extension-hello-world==0.1.0: ext.hello_world
-rhdzmota-extension-streamlit-webapps==0.2.0: ext.streamlit_webapps
+rhdzmota-extension-streamlit-webapps==0.3.0: ext.streamlit_webapps
 
 # Tools Exclusive
-rsa==4.8: default
-psutil==5.9.2: default
+rsa==4.8: shared
+psutil==5.9.2: shared
 
 # Celery Exclusive
 celery[redis]==5.1.2: celery
