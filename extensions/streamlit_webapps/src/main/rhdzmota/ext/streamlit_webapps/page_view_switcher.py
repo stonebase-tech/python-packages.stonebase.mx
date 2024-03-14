@@ -1,8 +1,9 @@
 import enum
-from typing import List
+from typing import List, Optional
 
 import streamlit as st
 
+from rhdzmota.ext.streamlit_webapps.backend import BackendRequestHandler
 from rhdzmota.ext.streamlit_webapps.page_view import (
     PageView,
     CanonicalErrorView,
@@ -10,6 +11,10 @@ from rhdzmota.ext.streamlit_webapps.page_view import (
 
 
 class PageViewSwitcher(enum.Enum):
+
+    @classmethod
+    def get_switcher_name(cls) -> str:
+        return cls.__name__
 
     @classmethod
     def from_page_views(
@@ -28,7 +33,17 @@ class PageViewSwitcher(enum.Enum):
         )
 
     @classmethod
-    def run(cls, initial_page_key: str, **initial_page_kwargs):
+    def run(
+            cls,
+            initial_page_key: str,
+            backend_request_handler: Optional[BackendRequestHandler] = None,
+            backend_request_handler_keep_alias: bool = False,
+            **initial_page_kwargs
+    ):
+        if backend_request_handler:
+            backend_request_handler.register(
+                overwrite_alias=cls.get_switcher_name() if not backend_request_handler_keep_alias else None,
+            )
         # On first execution, save the inital page key with their corresponding kwargs
         page_current = st.session_state.get(PageView.session_key_page_current, None)
         if not page_current:
