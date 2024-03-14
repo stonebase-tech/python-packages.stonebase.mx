@@ -51,7 +51,7 @@ class BackendRequestHandler(RequestHandler):
             overwrite_alias: Optional[str] = None,
             fallback_alias: Optional[str] = None,
             use_empty_fallback: bool = False,
-        ) -> str:
+    ) -> str:
         fallback_alias = fallback_alias or (
             "" if use_empty_fallback else cls.__name__
         )
@@ -67,7 +67,7 @@ class BackendRequestHandler(RequestHandler):
             overwrite_alias: Optional[str] = None,
             fallback_alias: Optional[str] = None,
             use_empty_fallback: bool = False,
-        ) -> bool:
+    ) -> bool:
         return TornadoApplicationWrapper().register_handler(
             uri=cls.get_uri(
                 overwrite_base_uri=overwrite_base_uri,

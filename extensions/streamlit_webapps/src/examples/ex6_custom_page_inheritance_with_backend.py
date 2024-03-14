@@ -6,10 +6,11 @@ from rhdzmota.ext.streamlit_webapps.backend import BackendRequestHandler
 
 
 class CustomPageEndpoint(BackendRequestHandler):
-    alias="ex6"
+    alias = "ex6"
 
     def get(self):
         self.write({"message": "Hello, from Ex6!"})
+
 
 class CustomPageView(PageView):
 

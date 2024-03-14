@@ -70,7 +70,6 @@ class PageView(PageViewDescriptors, PageViewSessionKeys):
     backend_request_handler_overwrite_base_uri: Optional[str] = None
     backend_request_handler_use_empty_fallback: Optional[str] = None
 
-
     def __post_init__(self):
         if self.backend_request_handler:
             self.backend_request_handler.register(
