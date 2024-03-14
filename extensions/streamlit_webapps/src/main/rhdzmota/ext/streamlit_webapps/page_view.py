@@ -6,6 +6,7 @@ import streamlit as st
 
 from rhdzmota.settings import logger_manager
 from rhdzmota.wrappers.sentry import SentrySDKConfig
+from rhdzmota.ext.streamlit_webapps.backend import BackendRequestHandler
 
 
 logger = logger_manager.get_logger(name=__name__)
@@ -64,6 +65,19 @@ class PageView(PageViewDescriptors, PageViewSessionKeys):
     overwrite_instance_refname: Optional[str] = None
     page_configs_kwargs: dict = field(default_factory=dict)
     disable_sentry: bool = False
+    backend_request_handler: Optional[BackendRequestHandler] = None
+    backend_request_handler_overwrite_alias: Optional[str] = None
+    backend_request_handler_overwrite_base_uri: Optional[str] = None
+    backend_request_handler_use_empty_fallback: Optional[str] = None
+
+
+    def __post_init__(self):
+        if self.backend_request_handler:
+            self.backend_request_handler.register(
+                overwrite_base_uri=self.backend_request_handler_overwrite_base_uri,
+                overwrite_alias=self.backend_request_handler_overwrite_alias,
+                use_empty_fallback=self.backend_request_handler_use_empty_fallback,
+            )
 
     @classmethod
     def inline(cls, view_name: str, func: Callable, **kwargs) -> 'PageView':
