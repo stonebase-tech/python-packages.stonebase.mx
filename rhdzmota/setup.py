@@ -17,7 +17,7 @@ DEPS_FILE = os.environ.get(
 with open("requirements.txt", "r") as file:
     requirements = [line for line in file.read().splitlines() if line and not line.startswith("#")]
 
-with open(os.path.join(CODEBASE_PATH, "rhdzmota", "VERSION"), "r") as file:
+with open(os.path.join(CODEBASE_PATH, "rhdzmota", "version"), "r") as file:
     version = file.read().strip()
 
 with open("README.md") as file:
