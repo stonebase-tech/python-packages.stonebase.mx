@@ -35,8 +35,8 @@ ipython==7.34.0: develop
 jupyter==1.0.0: develop
 
 # RHDZMOTA Extensions
-rhdzmota-extension-hello-world==0.1.0: ext.hello_world
-rhdzmota-extension-streamlit-webapps==0.5.0: ext.streamlit_webapps
+rhdzmota-extension-hello-world>=0.1.1,<1.0.0: ext.hello_world
+rhdzmota-extension-streamlit-webapps>=0.5.1,<1.0.0: ext.streamlit_webapps
 
 # Tools Exclusive
 rsa==4.8: standalone
