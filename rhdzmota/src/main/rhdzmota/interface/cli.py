@@ -39,6 +39,31 @@ class CLIBase:
         self.start = time.perf_counter()
         self.end = None
 
+    def standard_version_import_pattern(self) -> str:
+        *base_imports, _ = self.extension_import_pattern.split(".")
+        return ".".join(base_imports) + "_version"
+
+    def version(
+            self,
+            overwrite_version_import_pattern: Optional[str] = None,
+            overwrite_version_varname: Optional[str] = None,
+            path: bool = False,
+            fail: bool = False,
+        ):
+        import importlib
+
+        version_varname = overwrite_version_varname or "version"
+        version_import_pattern = overwrite_version_import_pattern or \
+            self.standard_version_import_pattern()
+        version_module = importlib.import_module(version_import_pattern)
+        version = getattr(version_module, version_varname)
+        if not version and fail:
+            raise ValueError(
+                f"Version ({version_varname}) not found: {version_import_pattern}"
+            )
+        return version.filepath if path else version.value 
+
+
     def now(self, local: bool = False) -> str:
         return (dt.datetime.utcnow() if not local else dt.datetime.now()).isoformat()
 
