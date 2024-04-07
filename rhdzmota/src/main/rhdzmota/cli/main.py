@@ -5,6 +5,7 @@ from typing import Optional
 from rhdzmota.settings import logger_manager
 from rhdzmota.interface.cli import CLIBase
 from rhdzmota.utils.gists import Gist
+from rhdzmota.version import version
 
 
 logger = logger_manager.get_logger(name=__name__)
@@ -31,13 +32,11 @@ class CLI(CLIBase):
 
     @property
     def version_filepath(self) -> str:
-        path = os.path.join(os.path.dirname(__file__), "..")
-        return os.path.join(path, "VERSION")
+        return version.filepath
 
     @property
     def version_value(self) -> str:
-        with open(self.version_filepath, "r") as file:
-            return file.read()
+        return version.value
 
     @CLIBase.Formatter()
     def version(self, path: bool = False):

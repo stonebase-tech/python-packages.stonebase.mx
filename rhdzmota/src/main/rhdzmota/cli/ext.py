@@ -33,6 +33,28 @@ class CLIExt(CLIBase):
     def get_extension_module(self, extension: str):
         return importlib.import_module(self.get_import_pattern(extension=extension))
 
+    def version(
+            self,
+            extension: str,
+            overwrite_version_import_pattern: Optional[str] = None,
+            overwrite_version_varname: Optional[str] = None,
+            path: bool = False,
+            fail: bool = False,
+    ):
+        version_varname = overwrite_version_varname or "version"
+        version_import_pattern = overwrite_version_import_pattern or ".".join([
+            "rhdzmota",
+            "ext",
+            f"{extension}_version",
+        ])
+        version_module = importlib.import_module(version_import_pattern)
+        version = getattr(version_module, version_varname)
+        if not version and fail:
+            raise ValueError(
+                f"Version not found for extension {extension}: {version_import_pattern}"
+            )
+        return version.filepath if path else version.value
+
     def execute(self, extension: str, command: str, *args, **kwargs):
         extension_module = self.get_extension_module(extension=extension)
         ext_cli = getattr(extension_module, "CLI")
