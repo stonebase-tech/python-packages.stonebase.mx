@@ -40,7 +40,7 @@ class CLIExt(CLIBase):
             overwrite_version_varname: Optional[str] = None,
             path: bool = False,
             fail: bool = False,
-        ):
+    ):
         version_varname = overwrite_version_varname or "version"
         version_import_pattern = overwrite_version_import_pattern or ".".join([
             "rhdzmota",

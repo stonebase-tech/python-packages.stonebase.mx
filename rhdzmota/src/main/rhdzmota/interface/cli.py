@@ -49,7 +49,7 @@ class CLIBase:
             overwrite_version_varname: Optional[str] = None,
             path: bool = False,
             fail: bool = False,
-        ):
+    ):
         import importlib
 
         version_varname = overwrite_version_varname or "version"
@@ -61,8 +61,7 @@ class CLIBase:
             raise ValueError(
                 f"Version ({version_varname}) not found: {version_import_pattern}"
             )
-        return version.filepath if path else version.value 
-
+        return version.filepath if path else version.value
 
     def now(self, local: bool = False) -> str:
         return (dt.datetime.utcnow() if not local else dt.datetime.now()).isoformat()
