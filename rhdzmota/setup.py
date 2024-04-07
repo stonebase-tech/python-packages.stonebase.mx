@@ -82,7 +82,8 @@ setup(
     },
     package_data={
         "": [
-            os.path.join("iso3166", "datafiles", "*.json"),
+            os.path.join(CODEBASE_PATH, "rhdzmota", "iso3166", "datafiles", "*.json"),
+            os.path.join(CODEBASE_PATH, "rhdzmota", "version"),
         ]
     },
     entry_points={
