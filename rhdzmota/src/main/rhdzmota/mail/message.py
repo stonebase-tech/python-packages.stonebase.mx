@@ -8,19 +8,44 @@ __all__ = [
 
 @dataclass
 class Message:
-    recipient: str
     subject: str
     content: str
     author: str
+    content_type: str
 
-    def to_email_message(self) -> EmailMessage:
+    @classmethod
+    def content_plain_text(
+            cls,
+            subject: str,
+            content: str,
+            author: str,
+    ) -> 'Message':
+        return cls(
+            subject=subject,
+            content=content,
+            author=author,
+            content_type="text/plain",
+        )
+
+    @classmethod
+    def content_html(
+            cls,
+            subject: str,
+            content: str,
+            author: str,
+    ) -> 'Message':
+        return cls(
+            subject=subject,
+            content=content,
+            author=author,
+            content_type="text/html",
+        )
+
+    def to_email_message(self, *recipient: str) -> EmailMessage:
         message = EmailMessage()
         message["From"] = self.author
-        message["To"] = self.recipient
+        message["To"] = ", ".join(recipient)
         message["Subject"] = self.subject
         message.set_content(self.content)
+        message.set_type(self.content_type)
         return message
-
-    def set_recipient(self, recipient: str):
-        self.recipient = recipient
-        return self
