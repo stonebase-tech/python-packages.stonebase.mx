@@ -17,7 +17,7 @@ logger = logger_manager.get_logger(name=__name__)
 class EmailServerWrapper:
     singleton: Optional = None
     _server: Optional = None
-    
+
     @staticmethod
     def _smtp_server_instance(
             host: str,
@@ -94,7 +94,7 @@ class EmailServerWrapper:
         if self._server.has_extn("starttls") and not disable_tls:
             self._server.starttls()
         return self._server
-    
+
     def login(
             self,
             user: Optional[str] = None,
