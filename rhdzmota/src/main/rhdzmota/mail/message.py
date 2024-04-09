@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 from email.message import EmailMessage
+from typing import Optional
+
 
 __all__ = [
     "Message"
@@ -12,6 +14,7 @@ class Message:
     content: str
     author: str
     content_type: str
+    include_html: Optional[str] = None
 
     @classmethod
     def content_plain_text(
@@ -19,27 +22,20 @@ class Message:
             subject: str,
             content: str,
             author: str,
+            include_html: Optional[str] = None,
     ) -> 'Message':
         return cls(
             subject=subject,
             content=content,
             author=author,
             content_type="text/plain",
+            include_html=include_html
         )
 
-    @classmethod
-    def content_html(
-            cls,
-            subject: str,
-            content: str,
-            author: str,
-    ) -> 'Message':
-        return cls(
-            subject=subject,
-            content=content,
-            author=author,
-            content_type="text/html",
-        )
+    @property
+    def content_subtype(self) -> str:
+        _, subtype = self.content_type.split("/")
+        return subtype
 
     def to_email_message(self, *recipient: str) -> EmailMessage:
         message = EmailMessage()
@@ -47,5 +43,6 @@ class Message:
         message["To"] = ", ".join(recipient)
         message["Subject"] = self.subject
         message.set_content(self.content)
-        message.set_type(self.content_type)
+        if self.include_html:
+            message.add_alternative(self.include_html, subtype="html")
         return message
