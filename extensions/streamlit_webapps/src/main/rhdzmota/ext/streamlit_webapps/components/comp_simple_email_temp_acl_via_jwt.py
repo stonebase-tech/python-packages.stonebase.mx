@@ -180,7 +180,7 @@ class PVEmailACLGatekeeper(PageView, EmailACLUtils):
             redirect_url: str,
             payload: dict,
     ) -> Optional[str]:
-        return 
+        return
 
     def procedure_validate_email(
             self,
