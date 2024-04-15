@@ -42,6 +42,6 @@ if __name__ == "__main__":
         ]
     )
     switcher.run(
-        initial_page_key=email_acl_gatekeeper\
+        initial_page_key=email_acl_gatekeeper
             .get_start_page_or_use_me_instead()
     )
