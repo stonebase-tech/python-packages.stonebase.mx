@@ -38,7 +38,7 @@ if __name__ == "__main__":
             example,
             email_acl_failure,
             email_acl_success,
-            email_acl_gatekeeper, 
+            email_acl_gatekeeper,
         ]
     )
     switcher.run(
