@@ -186,7 +186,7 @@ class PVEmailACLGatekeeper(PageView, EmailACLUtils):
             self,
             email: str,
             domain: str,
-        ) -> bool:
+    ) -> bool:
         # Start with a regex validation
         if not validate_email_pattern(target_email=email):
             logger.error(f"Invalid email pattern: {email}")
