@@ -143,6 +143,11 @@ class LoggerManager:
 logger_manager = LoggerManager.singleton()
 logger = logger_manager.get_logger(name=__name__)
 
+stonebase_install = "pip install 'stonebase[standalone]'"
+logger.warning(
+    f"The RHDZMOTA Package has been deprecated! Use stonebase instead: {stonebase_install}"
+)
+
 # Celery
 
 RHDZMOTA_CELERY_BROKER_HOST = get_environ_variable(
